@@ -1,0 +1,126 @@
+---
+import fetchAPI from "../lib/fetchAPI"
+import { WP_post } from "../types/post.type"
+import PostCard from "./PostCard.astro"
+
+const {
+  posts: { edges: wpPosts },
+} = await fetchAPI<{ posts: { edges: WP_post[] } }>(`{
+    posts(first: 10000) {
+      edges {
+        node {
+          featuredImage {
+            node {
+                mediaDetails {
+                    height
+                    width
+                    file
+                }
+                mediaItemUrl
+            }
+          }
+          isSticky
+          slug
+          title
+          excerpt
+          categories {
+            nodes {
+              name
+            }
+          }
+        }
+      }
+    }
+   } `)
+---
+
+<div class="container">
+  <div class="page">
+    <main class="mainContainer">
+      <div class="posts">
+        {wpPosts.map((post) => <PostCard {...post} />)}
+      </div>
+    </main>
+  </div>
+</div>
+
+<style>
+  .container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 0;
+  }
+
+  .page {
+    display: flex;
+    width: 1200px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .mainContainer {
+    position: relative;
+    padding: 3px;
+    background: linear-gradient(
+      349deg,
+      rgba(187, 5, 5, 1) 0,
+      rgba(206, 110, 2, 1) 31%,
+      rgba(217, 167, 0, 1) 54%,
+      rgba(189, 120, 0, 1) 72%,
+      rgba(117, 1, 1, 1) 100%
+    );
+  }
+
+  .main {
+    z-index: 1;
+  }
+
+  .footer {
+    width: 100%;
+    height: 100px;
+    border-top: 1px solid
+      hsl(var(--color-red-hue), var(--color-red-sat), var(--color-red-light));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  .posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: space-evenly;
+  }
+
+  @media (max-width: 1200px) {
+    .page {
+      width: 100%;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .posts {
+      display: flex;
+      flex-direction: column;
+    }
+    .postTitle[data-sticky="true"] {
+      font-size: 1.3em;
+    }
+
+    .postTitle {
+      font-size: 1.5em;
+    }
+  }
+</style>

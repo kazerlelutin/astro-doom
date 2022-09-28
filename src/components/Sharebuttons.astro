@@ -1,0 +1,76 @@
+---
+import * as dotenv from "dotenv"
+dotenv.config()
+
+type Props = {
+  pathName: string
+  title: string
+}
+const { pathName, title } = Astro.props as Props
+
+const basePath = "https://www.noscreenwithoutdoom.art/",
+  message = `${title}%0D%23doom ddde`
+
+const res = await fetch(process.env.SHORTER_URL + basePath + pathName, {
+  method: "GET",
+})
+
+const { shorturl } = await res.json()
+---
+
+<div class="container">
+  <div class="title">{`Share on:`}</div>
+  <a
+    class="button"
+    data-service="facebook"
+    href={`https://www.facebook.com/sharer/sharer.php?u=${shorturl}&quote=${message}`}
+    target="_blank"
+    rel="noreferrer"
+  >
+    Facebook
+  </a>
+  <a
+    class="button"
+    data-service="twitter"
+    href={`https://twitter.com/intent/tweet?text=${message}%0D${shorturl}`}
+    target="_blank"
+    rel="noreferrer"
+  >
+    Twitter
+  </a>
+</div>
+
+<style>
+    .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.button {
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+}
+
+.button[data-service="facebook"] {
+  background: var(--color-facebook);
+}
+.button[data-service="twitter"] {
+  background: var(--color-twitter);
+}
+
+.button:hover {
+  background: hsl(
+    var(--color-red-hue),
+    var(--color-red-sat),
+    var(--color-red-light)
+  );
+}
+
+</style>

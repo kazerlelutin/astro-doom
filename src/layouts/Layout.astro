@@ -1,56 +1,60 @@
 ---
-export interface Props {
-	title: string;
+import Header from "../components/Header.astro"
+import Menu from "../components/Menu.svelte"
+import Metas from "../components/Metas.astro"
+import { MetasProps } from "../types/metasProps"
+interface Props {
+  metas: MetasProps
 }
 
-const { title } = Astro.props as Props;
+const { metas } = Astro.props as Props
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <Metas {...metas} />
+  <body>
+    <Header />
+    <Menu client:idle />
+    <slot />
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .footer {
+        border-top: 1px solid
+          hsl(
+            var(--color-red-hue),
+            var(--color-red-sat),
+            var(--color-red-light),
+            0.5
+          );
+        text-align: center;
+        padding: 10px;
+      }
+
+      @media screen and (max-width: 600px) {
+        .header {
+          padding: 10px 10px 0;
+          font-size: 0.8em;
+          text-align: center;
+        }
+
+        .container {
+          grid-template-rows: auto 1fr;
+        }
+
+        .doom {
+          max-width: 120px;
+        }
+
+        .noScreen {
+          font-size: 1.5em;
+        }
+      }
+    </style>
+  </body>
 </html>
-<style>
-	:root {
-		--font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
-		--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
-		--font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
-
-		--color-text: hsl(12, 5%, 4%);
-		--color-bg: hsl(10, 21%, 95%);
-		--color-border: hsl(17, 24%, 90%);
-	}
-
-	html {
-		font-family: system-ui, sans-serif;
-		font-size: var(--font-size-base);
-		color: var(--color-text);
-		background-color: var(--color-bg);
-	}
-
-	body {
-		margin: 0;
-	}
-
-	:global(h1) {
-		font-size: var(--font-size-xl);
-	}
-
-	:global(h2) {
-		font-size: var(--font-size-lg);
-	}
-
-	:global(code) {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
-</style>

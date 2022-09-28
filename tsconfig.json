@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "types": [
+      "astro/client"
+    ],
+    "plugins": [
+      {
+        "name": "ts-gql-plugin"
+      }
+    ]
+  }
+}

@@ -1,0 +1,121 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import getAllPostsWithSlugs from "../../lib/getAllPostsWithSlugs"
+import getPostBySlug from "../../lib/getPostBySlug"
+import { MetasProps } from "../../types/metasProps"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
+import localizedFormat from "dayjs/plugin/localizedFormat"
+import CategoryChip from "../../components/CategoryChip.astro"
+import Sharebuttons from "../../components/Sharebuttons.astro"
+dayjs.extend(relativeTime)
+dayjs.extend(localizedFormat)
+
+export async function getStaticPaths() {
+  const pagesWithSlugs = await getAllPostsWithSlugs()
+  return pagesWithSlugs.edges.map(({ node }) => {
+    return {
+      params: { slug: node.slug },
+    }
+  })
+}
+
+const { slug } = Astro.params
+const post = await getPostBySlug(slug)
+
+const metas: MetasProps = {
+  title: post.title,
+  path: `/article/${slug}`,
+  description: post.excerpt,
+  img: post.featuredImage.node.mediaItemUrl,
+}
+---
+
+<Layout metas={metas}>
+  <div class="container">
+    <div class="page">
+      <div class="mainContainer">
+        <main class="main">
+          <h1 class="title">{post.title}</h1>
+          <div class="infos">
+            <CategoryChip categories={post.categories} />
+            <div class="date">
+              {dayjs(post.date).format("LLL")}
+            </div>
+          </div>
+          <Sharebuttons pathName={`article/${slug}`} title={post.title} />
+          <article class="article">
+            <Fragment set:html={post.content} />
+          </article>
+          <Sharebuttons pathName={`article/${slug}`} title={post.title} />
+        </main>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .container {
+    display: flex;
+    max-width: 700px;
+    justify-content: center;
+    margin: auto;
+    padding: 10px 20px;
+  }
+
+  .title {
+    font-size: 5em;
+    text-align: center;
+    color: white;
+    padding: 0 15px;
+  }
+
+  .date {
+    font-style: italic;
+    color: hsl(
+      var(--color-red-hue),
+      var(--color-red-sat),
+      var(--color-red-light)
+    );
+    text-align: right;
+  }
+
+  .article {
+    line-height: 1.4em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .article img {
+    max-width: 100%;
+  }
+
+  .infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .article a {
+    text-decoration: underline;
+    color: white;
+  }
+
+  .article ul,
+  .article p {
+    width: 100%;
+    text-align: left;
+  }
+
+  @media screen and (max-width: 500px) {
+    .title {
+      font-size: 3em;
+    }
+    .infos {
+      margin-top: 10px;
+      flex-direction: column;
+    }
+  }
+</style>

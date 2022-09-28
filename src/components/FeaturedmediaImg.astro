@@ -1,0 +1,32 @@
+---
+import { FeaturedImage } from "../types/post.type"
+
+type Props = {
+  title: string
+  featuredImage: FeaturedImage
+}
+
+const {
+  title,
+  featuredImage: {
+    node: { mediaItemUrl },
+  },
+} = Astro.props as FeaturedImage & Props
+---
+
+<div class="container">
+  <div class="img">
+    <img src={mediaItemUrl} alt={title} />
+  </div>
+</div>
+
+<style>
+  .container {
+    display: flex;
+  }
+
+  .img {
+    width: 100%;
+    height: auto;
+  }
+</style>

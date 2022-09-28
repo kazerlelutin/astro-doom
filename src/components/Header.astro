@@ -1,0 +1,71 @@
+<header class="header">
+  <a class="title" rel="prefetch">
+    <div class="noScreen">No screen without</div>
+    <div class="doom">
+      <img src="/logo.webp" width="200" height="106" alt="logo" />
+    </div>
+  </a>
+</header>
+
+<style>
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    font-size: 3em;
+    line-height: 1.8em;
+    text-shadow: 0 0 5px black;
+    background: radial-gradient(
+      circle,
+      hsl(var(--color-red-hue), var(--color-red-sat), var(--color-red-light)) 0,
+      rgba(0, 0, 0, 1) 70%
+    );
+  }
+
+  .title {
+    color: white;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+    font-family: "Karantina", cursive;
+    padding: 0 15px 15px;
+  }
+
+  .noScreen {
+    font-size: 0.5em;
+    color: #404a7e;
+    line-height: 1em;
+    color: white;
+    text-transform: uppercase;
+  }
+
+  .doom {
+    max-width: 200px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .header {
+      padding: 10px 10px 0;
+      font-size: 0.8em;
+      text-align: center;
+    }
+
+    .container {
+      grid-template-rows: auto 1fr;
+    }
+
+    .doom {
+      max-width: 120px;
+    }
+
+    .noScreen {
+      font-size: 1.5em;
+    }
+  }
+</style>
