@@ -1,14 +1,12 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import getLastPosts from '../lib/getLastPosts';
-import LastPosts from '../components/LastPosts.astro';
+import Layout from '../layouts/Layout.astro'
+import LastPosts from '../components/LastPosts.astro'
 
-const posts = await getLastPosts()
-
-console.group(posts.map(o=>o.categories))
+const metas = {
+  path: '/',
+}
 ---
 
-<Layout title="No Screen without DOOM">
-	<LastPosts/>
+<Layout metas={metas}>
+  <LastPosts />
 </Layout>
-

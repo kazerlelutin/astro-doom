@@ -1,18 +1,24 @@
 ---
-import * as dotenv from "dotenv"
+import * as dotenv from 'dotenv'
+import { camelCase } from '../lib/camelCase'
 dotenv.config()
 
 type Props = {
   pathName: string
   title: string
+  tags: { name: string }[]
+  categories: { name: string; slug: string }[]
 }
-const { pathName, title } = Astro.props as Props
+const { pathName, title, tags, categories } = Astro.props as Props
 
-const basePath = "https://www.noscreenwithoutdoom.art/",
-  message = `${title}%0D%23doom ddde`
+const basePath = 'https://www.noscreenwithoutdoom.art/'
+
+const message = `${title}%0D%23doom ${
+  tags ? tags.map((o) => `${camelCase(o.name)} `).join('') : ' '
+}${categories ? categories.map((o) => `${camelCase(o.name)}`).join('') : ''}`
 
 const res = await fetch(process.env.SHORTER_URL + basePath + pathName, {
-  method: "GET",
+  method: 'GET',
 })
 
 const { shorturl } = await res.json()
@@ -41,36 +47,35 @@ const { shorturl } = await res.json()
 </div>
 
 <style>
-    .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  gap: 10px;
-}
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    gap: 10px;
+  }
 
-.button {
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  font-size: 0.9em;
-  cursor: pointer;
-  transition: 200ms ease-in-out;
-}
+  .button {
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: 200ms ease-in-out;
+  }
 
-.button[data-service="facebook"] {
-  background: var(--color-facebook);
-}
-.button[data-service="twitter"] {
-  background: var(--color-twitter);
-}
+  .button[data-service='facebook'] {
+    background: var(--color-facebook);
+  }
+  .button[data-service='twitter'] {
+    background: var(--color-twitter);
+  }
 
-.button:hover {
-  background: hsl(
-    var(--color-red-hue),
-    var(--color-red-sat),
-    var(--color-red-light)
-  );
-}
-
+  .button:hover {
+    background: hsl(
+      var(--color-red-hue),
+      var(--color-red-sat),
+      var(--color-red-light)
+    );
+  }
 </style>

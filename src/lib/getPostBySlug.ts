@@ -1,14 +1,19 @@
-import fetchAPI from "./fetchAPI"
-import { WP_postStandAlone } from '../types/post.type';
+import fetchAPI from './fetchAPI'
+import { WP_postStandAlone } from '../types/post.type'
 
-export default async function getPostBySlug(slug: string |number) {
-  const data = await fetchAPI<{postBy:WP_postStandAlone}>(`
+export async function getPostBySlug(slug: string | number) {
+  const data = await fetchAPI<{ postBy: WP_postStandAlone }>(`
     {
         postBy(slug: "${slug}") {
         title
         date
         content(format: RENDERED)
         categories {
+          nodes {
+            name
+          }
+        }
+        tags {
           nodes {
             name
           }

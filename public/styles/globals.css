@@ -3,6 +3,12 @@
 a {
   color: inherit;
   text-decoration: none;
+  word-break: break-all;
+  color: hsl(
+    var(--color-yellow-hue),
+    var(--color-yellow-sat),
+    var(--color-yellow-light)
+  );
 }
 
 * {

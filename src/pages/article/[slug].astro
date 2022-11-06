@@ -1,13 +1,13 @@
 ---
-import Layout from "../../layouts/Layout.astro"
-import getAllPostsWithSlugs from "../../lib/getAllPostsWithSlugs"
-import getPostBySlug from "../../lib/getPostBySlug"
-import { MetasProps } from "../../types/metasProps"
-import dayjs from "dayjs"
-import relativeTime from "dayjs/plugin/relativeTime"
-import localizedFormat from "dayjs/plugin/localizedFormat"
-import CategoryChip from "../../components/CategoryChip.astro"
-import Sharebuttons from "../../components/Sharebuttons.astro"
+import Layout from '../../layouts/Layout.astro'
+import { getAllPostsWithSlugs } from '../../lib/getAllPostsWithSlugs'
+import { getPostBySlug } from '../../lib/getPostBySlug'
+import { MetasProps } from '../../types/metasProps'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+import CategoryChip from '../../components/CategoryChip.astro'
+import Sharebuttons from '../../components/Sharebuttons.astro'
 dayjs.extend(relativeTime)
 dayjs.extend(localizedFormat)
 
@@ -40,14 +40,24 @@ const metas: MetasProps = {
           <div class="infos">
             <CategoryChip categories={post.categories} />
             <div class="date">
-              {dayjs(post.date).format("LLL")}
+              {dayjs(post.date).format('LLL')}
             </div>
           </div>
-          <Sharebuttons pathName={`article/${slug}`} title={post.title} />
+          <Sharebuttons
+            pathName={`article/${slug}`}
+            title={post.title}
+            tags={post.tags?.nodes}
+            categories={post.categories?.nodes}
+          />
           <article class="article">
             <Fragment set:html={post.content} />
           </article>
-          <Sharebuttons pathName={`article/${slug}`} title={post.title} />
+          <Sharebuttons
+            pathName={`article/${slug}`}
+            title={post.title}
+            tags={post?.tags?.nodes}
+            categories={post?.categories?.nodes}
+          />
         </main>
       </div>
     </div>

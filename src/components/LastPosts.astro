@@ -1,7 +1,7 @@
 ---
-import fetchAPI from "../lib/fetchAPI"
-import { WP_post } from "../types/post.type"
-import PostCard from "./PostCard.astro"
+import fetchAPI from '../lib/fetchAPI'
+import { WP_post } from '../types/post.type'
+import PostCard from './PostCard.astro'
 
 const {
   posts: { edges: wpPosts },
@@ -115,7 +115,7 @@ const {
       display: flex;
       flex-direction: column;
     }
-    .postTitle[data-sticky="true"] {
+    .postTitle[data-sticky='true'] {
       font-size: 1.3em;
     }
 

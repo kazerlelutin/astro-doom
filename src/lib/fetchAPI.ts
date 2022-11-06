@@ -1,14 +1,17 @@
-import { WP } from "./api"
+import { WP } from './api'
 
 type Params = {
   variables?: Object
 }
 
-export default async function fetchAPI<T>(query:string, { variables }: Params = {}):Promise<T> {
-  const headers = { "Content-Type": "application/json" }
+export default async function fetchAPI<T>(
+  query: string,
+  { variables }: Params = {}
+): Promise<T> {
+  const headers = { 'Content-Type': 'application/json' }
 
   const res = await fetch(WP, {
-    method: "POST",
+    method: 'POST',
     headers,
     body: JSON.stringify({ query, variables }),
   })
@@ -17,7 +20,7 @@ export default async function fetchAPI<T>(query:string, { variables }: Params = 
 
   if (json.errors) {
     console.log(json.errors)
-    throw new Error("Failed to fetch API")
+    throw new Error('Failed to fetch API')
   }
   return json.data
 }

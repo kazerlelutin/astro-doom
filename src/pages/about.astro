@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+const metas = {
+  title: 'About',
+  path: '/about',
+}
+---
+
+<Layout metas={metas}>
+  <h1 class="title">About</h1>
+  <div class="container">
+    <h2>THE PROJECT</h2>
+    <p>
+      The <span class="bold">“No screen Without DOOM”</span> project is to do a press
+      review of all possible ports of <span class="bold">DOOM</span>, and maybe
+      encourage even more releases.
+    </p>
+    <h2>EDITOR</h2>
+    <p>
+      The site <span class="bold">noscreenwithoutdoom.art</span> is edited by <a
+        href="https://twitter.com/kazerlelutin"
+        target="_blank">Benoist Bouteiller</a
+      > and <a href="https://twitter.com/PhilDubPrez" target="_blank"
+        >Philippe Dubois</a
+      > .
+    </p>
+    <h2>Contact</h2>
+    <p>
+      links are available via <a
+        href="https://linktr.ee/kazerlelutin"
+        target="_blank">Link.tree</a
+      >
+    </p>
+    <h2>HOSTS</h2>
+    <ul>
+      <li>
+        <a href="https://vercel.com/contact" target="_blank">Vercel</a>:
+        Front-end & Back-end
+      </li>
+      <li>
+        <a href="https://www.o2switch.fr/" target="_blank">O2Switch</a>:
+        Databases, CMS and bots
+      </li>
+    </ul>
+  </div>
+</Layout>
+
+<style>
+  .title {
+    font-size: 5em;
+    text-align: center;
+    color: white;
+    padding: 0 15px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    justify-content: center;
+    margin: auto;
+    padding: 10px 20px;
+  }
+
+  p {
+    padding-left: 20px;
+  }
+</style>

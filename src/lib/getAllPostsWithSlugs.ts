@@ -1,8 +1,8 @@
-import fetchAPI from "./fetchAPI"
-import { WP_post } from '../types/post.type';
+import fetchAPI from './fetchAPI'
+import { WP_post } from '../types/post.type'
 
-export default async function getAllPostsWithSlugs() {
-  const data = await fetchAPI<{posts:{edges:WP_post[]}}>(`
+export async function getAllPostsWithSlugs() {
+  const data = await fetchAPI<{ posts: { edges: WP_post[] } }>(`
     {
       posts(first: 10000) {
         edges {
