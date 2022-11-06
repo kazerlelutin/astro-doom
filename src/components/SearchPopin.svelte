@@ -178,52 +178,6 @@
     text-align: center;
   }
 
-  .post {
-    position: relative;
-    background: #000;
-    cursor: pointer;
-    display: grid;
-    transition: 200ms ease-in-out;
-  }
-
-  .post img {
-    width: 100%;
-  }
-
-  .excerpt {
-    font-style: italic;
-    word-break: break-all;
-  }
-
-  .postCategorie:after {
-    content: ',';
-  }
-
-  .postCategorie:last-child:after {
-    content: '';
-  }
-
-  .post:hover {
-    transform: scale(1.01);
-    box-shadow: 0 0 20px
-      hsl(var(--color-red-hue), var(--color-red-sat), var(--color-red-light));
-    z-index: 10;
-  }
-
-  .postDesc {
-    padding: 10px;
-  }
-
-  .postCategories {
-    font-size: 0.8em;
-    color: hsl(
-      var(--color-yellow-hue),
-      var(--color-yellow-sat),
-      var(--color-yellow-light)
-    );
-    text-transform: uppercase;
-  }
-
   @media screen and (max-width: 500px) {
     .page {
       width: 100%;
