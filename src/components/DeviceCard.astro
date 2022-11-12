@@ -1,0 +1,157 @@
+---
+import fetchBruceleekos from '../lib/fetchBruceleekos'
+import { DeviceInterface } from '../types/device.type'
+import { FeaturedImage } from '../types/post.type'
+
+type Props = {
+  slug: string
+  wp_id: number
+  name: string
+}
+
+const { slug, wp_id, name } = Astro.props as FeaturedImage & Props
+
+const machine = await fetchBruceleekos<DeviceInterface>('/machine/device', {
+  slug,
+  wp_id,
+  name,
+})
+---
+
+<div class="container">
+  <div class="titleContainer">
+    {
+      machine?.thumbnail && (
+        <div class="thumbnail">
+          <img
+            src={machine.thumbnail}
+            alt={machine.name}
+            width="75"
+            height="75"
+          />
+        </div>
+      )
+    }
+
+    <h2 class="title">
+      {machine?.long_name || machine?.name}
+    </h2>
+  </div>
+  <div class="grid">
+    <ul class="infos">
+      {
+        machine?.cpu && (
+          <li class="info">
+            <span class="bold">{`CPU: `}</span>
+            {machine.cpu}
+          </li>
+        )
+      }
+      {
+        machine?.memory && (
+          <li class="info">
+            <span class="bold">{`Memory: `}</span>
+            {machine.memory}
+          </li>
+        )
+      }
+      {
+        machine?.resolutions && (
+          <li class="info">
+            <span class="bold">{`Resolutions: `}</span>
+            {machine.resolutions}
+          </li>
+        )
+      }
+      {
+        machine?.sound && (
+          <li class="info">
+            <span class="bold">{`Sound: `}</span>
+            {machine.sound}
+          </li>
+        )
+      }
+      {
+        machine?.storage && (
+          <li class="info">
+            <span class="bold">{`Storage: `}</span>
+            {machine.storage}
+          </li>
+        )
+      }
+      {
+        machine?.media && (
+          <li class="info">
+            <span class="bold">{`Media: `}</span>
+            {machine.media}
+          </li>
+        )
+      }
+    </ul>
+    <div class="resume">
+      {machine?.summary ? machine.summary : `No info.`}
+    </div>
+  </div>
+</div>
+
+<style>
+  .container {
+    border: 1px solid hsl(var(--color-gray-hue), var(--color-gray-sat), 20%);
+    padding: 10px;
+    border-radius: 2px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .title {
+    color: hsl(
+      var(--color-red-hue),
+      var(--color-red-sat),
+      var(--color-red-light)
+    );
+    font-size: 3em;
+    text-align: center;
+  }
+
+  .titleContainer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 5px;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .thumbnail {
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .thumbnail img {
+    width: 100%;
+    height: auto;
+    max-width: 75px;
+  }
+
+  .infos {
+    font-size: 0.9em;
+  }
+
+  .grid {
+    display: flex;
+    gap: 15px;
+  }
+
+  .infos {
+    flex-grow: 1;
+  }
+
+  .resumeinfos {
+    flex-grow: 2;
+  }
+</style>

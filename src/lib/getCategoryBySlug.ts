@@ -3,11 +3,18 @@ import { WP_post } from '../types/post.type'
 
 export async function getCategoryBySlug(slug: string | number) {
   const data = await fetchAPI<{
-    category: { name: string; posts: { nodes: WP_post[] } }
+    category: {
+      name: string
+      categoryId: number
+      slug: string
+      posts: { nodes: WP_post[] }
+    }
   }>(`
     {
       category(idType: SLUG, id: "${slug}") {
         name
+        categoryId
+        slug
         posts {
           nodes {
             featuredImage {

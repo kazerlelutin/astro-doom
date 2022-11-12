@@ -5,6 +5,7 @@ import { getAllCategoriesWithSlugs } from '../../lib/getAllCategoriesWithSlugs'
 import { getCategoryBySlug } from '../../lib/getCategoryBySlug'
 import Posts from '../../components/Posts.astro'
 import PostCard from '../../components/PostCard.astro'
+import DeviceCard from '../../components/DeviceCard.astro'
 
 export async function getStaticPaths() {
   const pagesWithSlugs = await getAllCategoriesWithSlugs()
@@ -18,7 +19,6 @@ export async function getStaticPaths() {
 const { slug } = Astro.params
 const device = await getCategoryBySlug(slug)
 const posts = device.posts.nodes
-console.log(posts)
 
 const metas: MetasProps = {
   title: device?.name,
@@ -27,7 +27,27 @@ const metas: MetasProps = {
 ---
 
 <Layout metas={metas}>
-  <Posts>
-    {posts.map((post) => <PostCard {...post} />)}
-  </Posts>
+  <div class="container">
+    <DeviceCard
+      slug={device.slug}
+      wp_id={device.categoryId}
+      name={device.name}
+    />
+    <Posts>
+      {posts.map((post) => <PostCard {...post} />)}
+    </Posts>
+  </div>
 </Layout>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    justify-content: center;
+    margin: auto;
+    padding: 10px;
+    grid-gap: 15px;
+    gap: 15px;
+  }
+</style>
