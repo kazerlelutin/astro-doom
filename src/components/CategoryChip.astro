@@ -11,7 +11,7 @@ const { categories } = Astro.props as Props
 <div class="container">
   {
     categories?.nodes?.map((cat) => (
-      <a href={`/machine/${cat.slug}`} rel="prefetch" class="categorie">
+      <a href={`/device/${cat.slug}`} rel="prefetch" class="categorie">
         {HTMLDecoderEncoder.decode(cat.name)}
       </a>
     ))

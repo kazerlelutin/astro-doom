@@ -1,30 +1,35 @@
 ---
-import { WP_post } from "../types/post.type"
-import FeaturedmediaImg from "./FeaturedmediaImg.astro"
-import HTMLDecoderEncoder from 'html-encoder-decoder';
+import { WP_postStandAlone } from '../types/post.type'
+import FeaturedmediaImg from './FeaturedmediaImg.astro'
+import HTMLDecoderEncoder from 'html-encoder-decoder'
 
-const {
-  node: { categories, excerpt, isSticky, featuredImage, slug, title },
-} = Astro.props as WP_post
+const { categories, excerpt, isSticky, featuredImage, slug, title } =
+  Astro.props as WP_postStandAlone
 ---
 
-<a class="post" data-sticky={`${isSticky}`} href={`/article/${slug}`} rel="prefetch">
+<a
+  class="post"
+  data-sticky={`${isSticky}`}
+  href={`/article/${slug}`}
+  rel="prefetch"
+>
   <div class="img">
     <FeaturedmediaImg featuredImage={featuredImage} title={title} />
   </div>
   <div class="stickyPostDesc">
     <div class="postCategories">
-        {categories && categories?.nodes
-            .filter((o) => o.name !== "Uncategorized")
+      {
+        categories &&
+          categories?.nodes
+            .filter((o) => o.name !== 'Uncategorized')
             .map((categorie) => (
-              <div
-                class="postCategorie"
-              >
+              <div class="postCategorie">
                 {HTMLDecoderEncoder.decode(categorie.name)}
               </div>
-            ))}
+            ))
+      }
     </div>
-    <h2 class="postTitle" data-sticky={isSticky} set:html={title}></h2>
+    <h2 class="postTitle" data-sticky={isSticky} set:html={title} />
     {!isSticky && <div class="excerpt" set:html={excerpt} />}
   </div>
 </a>
@@ -41,20 +46,20 @@ const {
     flex-basis: 240px;
   }
 
-  .post[data-sticky="true"] {
+  .post[data-sticky='true'] {
     grid-column: 1/5;
     flex-basis: 100%;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-areas: "img txt";
+    grid-template-areas: 'img txt';
   }
 
-  .post[data-sticky="true"]:nth-child(even) {
+  .post[data-sticky='true']:nth-child(even) {
     grid-template-columns: 1fr 2fr;
-    grid-template-areas: "txt img";
+    grid-template-areas: 'txt img';
   }
 
-  .post[data-sticky="true"] img {
+  .post[data-sticky='true'] img {
     max-width: inherit;
   }
 
@@ -80,11 +85,11 @@ const {
   }
 
   .postCategorie:after {
-    content: ",";
+    content: ',';
   }
 
   .postCategorie:last-child:after {
-    content: "";
+    content: '';
   }
 
   .stickyPostDesc {
@@ -97,7 +102,7 @@ const {
     word-break: initial;
   }
 
-  .postTitle[data-sticky="true"] {
+  .postTitle[data-sticky='true'] {
     font-size: 3.5em;
   }
 

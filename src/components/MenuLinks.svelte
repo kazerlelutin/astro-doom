@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ProposalButton from './ProposalButton.svelte'
   import SearchButton from './SearchButton.svelte'
   import { links } from '../lib/links'
 
@@ -7,6 +8,7 @@
 
 <div class="menu" data-direction={direction}>
   <a class="link" href="/about">About</a>
+  <ProposalButton />
   <SearchButton />
 </div>
 

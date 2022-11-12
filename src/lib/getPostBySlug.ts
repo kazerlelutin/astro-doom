@@ -11,6 +11,7 @@ export async function getPostBySlug(slug: string | number) {
         categories {
           nodes {
             name
+            slug
           }
         }
         tags {
