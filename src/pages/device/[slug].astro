@@ -33,9 +33,17 @@ const metas: MetasProps = {
       wp_id={device.categoryId}
       name={device.name}
     />
-    <Posts>
-      {posts.map((post) => <PostCard {...post} />)}
-    </Posts>
+    {
+      posts.length > 0 ? (
+        <Posts>
+          {posts.map((post) => (
+            <PostCard {...post} />
+          ))}
+        </Posts>
+      ) : (
+        <div class="noResult">No result.</div>
+      )
+    }
   </div>
 </Layout>
 
@@ -49,5 +57,12 @@ const metas: MetasProps = {
     padding: 10px;
     grid-gap: 15px;
     gap: 15px;
+  }
+
+  .noResult {
+    text-align: center;
+    padding: 20px;
+    font-size: 2em;
+    font-weight: bold;
   }
 </style>
