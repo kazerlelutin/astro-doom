@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import * as brain from '../../public/scripts/brain'
   import LayoutAdmin from '../layouts/LayoutAdmin.svelte'
-  import { recurrent } from 'brain.js'
-  const { LSTM } = recurrent
 
   let output = ''
   let loading = false
@@ -72,6 +70,8 @@
     layers: [10],
   }
   async function run() {
+    const { LSTM } = brain.recurrent
+
     loading = true
     console.log('__________LOADING')
     const network = new LSTM()

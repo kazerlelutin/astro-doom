@@ -25,7 +25,7 @@
       document.location.href = '/login'
     } else {
       const json = await response.json()
-      console.log(json)
+      //console.log(json)
       connected = true
     }
     loading = false
