@@ -3,9 +3,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "yarn global add node-gyp",
+    "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "vercel-build": "yarn global add node-gyp"
   },
   "devDependencies": {
     "@astrojs/prefetch": "^0.2.1",
