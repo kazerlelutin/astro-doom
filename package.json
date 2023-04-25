@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -26,5 +26,6 @@
     "brain.js": "2.0.0-beta.23",
     "gpu.js": "^2.16.0",
     "prisma": "^4.13.0"
-  }
+  },
+  "license": "MIT"
 }
