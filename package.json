@@ -5,8 +5,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "vercel-build": "yarn global add node-gyp"
+    "astro": "astro"
   },
   "devDependencies": {
     "@astrojs/prefetch": "^0.2.1",
