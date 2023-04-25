@@ -1,11 +1,13 @@
 <script lang="ts">
-  import * as brain from '../../public/scripts/brain'
   import LayoutAdmin from '../layouts/LayoutAdmin.svelte'
 
-  let output = ''
+  let output = 'begin'
   let loading = false
   let error = ''
   let iteration = 0
+
+  const search =
+    'Cancer-causing chemicals found in 87% of household objects tested in ...'
 
   const data = [
     {
@@ -60,9 +62,9 @@
   ]
 
   const config = {
-    iterations: 1500,
+    iterations: 300,
     log: true,
-    logPeriod: 50,
+    logPeriod: 10,
     callback: (status) => {
       error = status.error
       iteration = status.iterations
@@ -70,34 +72,36 @@
     layers: [10],
   }
   async function run() {
-    const { LSTM } = brain.recurrent
+    const { recurrent } = brain
+    const { LSTM } = recurrent
 
-    loading = true
-    console.log('__________LOADING')
+    console.log('__________LOADING', loading)
     const network = new LSTM()
     network.train(data, config)
 
     // output = network.run('Doom 64 Free Download PC Game Full Version') // 'happy'
 
-    output = network.run(
-      'Cancer-causing chemicals found in 87% of household objects tested in ...'
-    ) // 'happy'
+    const res = new Promise((resolve, reject) => {
+      loading = true
+      resolve(network.run('Doom 64 Free Download PC Game Full Version'))
+    }) as Promise<string>
+
+    output = await res
     loading = false
     console.log('__________', output)
+    console.log('__________LOADING', loading)
   }
 </script>
 
+<svelte:head>
+  <script src="/scripts/brain.js"></script>
+</svelte:head>
+
 <LayoutAdmin>
   <div class="container">
-    <button on:click={run}>
-      {#if loading}
-        ...
-      {:else}
-        Run
-      {/if}
-    </button>
+    <button on:click={run}> Run </button>
 
-    <p>{output}</p>
+    <p>{search} - {output}</p>
 
     <p>{error}</p>
     <p>{iteration}</p>
@@ -106,6 +110,6 @@
 
 <style>
   p {
-    font-size: 2em;
+    font-size: 1em;
   }
 </style>
